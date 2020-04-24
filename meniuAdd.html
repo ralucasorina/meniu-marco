@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+<title>meniu</title>
+<style>
+
+body {
+  margin: 30px;
+  background-color: rgb(230, 226, 228);
+}
+form {
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-row-gap: 10px;
+    
+}
+input, textarea {
+    padding: 10px;
+    border-style: none;
+    border-radius: 3px;
+}
+
+</style>
+<script>
+    var iEdit;
+async function add(event){
+    event.preventDefault();
+	var obj={
+		titlu:document.querySelector("[name='name']").value,
+		img:document.querySelector("[name='url']").value,
+		ingrediente:document.querySelector("[name='ingrediente']").value,
+		reteta:document.querySelector("[name='reteta']").value,
+        calorii:document.querySelector("[name='calorii']").value,
+        categorie:document.querySelector("[name='categorie']").value,
+        ziua:document.querySelector("[name='ziua']").value
+
+		}
+
+	var response = await fetch(`https://restaurant-d5cc0.firebaseio.com/.json`,{
+		method:"post",
+		body:JSON.stringify(obj)
+		});
+
+	location.href = "meniuAdd.html";
+				
+			}
+</script>
+</head>
+<body>
+    <a href="meniuAdmin.html" style="position: fixed;top:5px;left:5px;">Inapoi la meniu</a>
+    <h1>Meniu . admin</h1>
+    <form onsubmit="add(event)" action="">
+            <label for="name">Titlu:</label>
+            <input id="name" type="text" name="name"/>
+
+            <label for="url">URL</label>
+            <input id="url" type="text" name="url"/>
+
+            <label for="ingrediente">Ingrediente</label>
+            <textarea id="ingrediente" name="ingrediente"></textarea>
+            
+            <label for="reteta">Reteta</label>
+            <textarea id="reteta" name="reteta"></textarea>
+            
+            <label for="calorii">Calorii</label>
+            <textarea id="calorii" type="number" name="calorii"></textarea>
+            
+            <label for="categorie">Categorie:</label>
+            <select id="categorie" name="categorie">
+              <option value="mic-dejun">Mic-dejun</option>
+              <option value="gustare1">Gustare1</option>
+              <option value="pranz">Pranz</option>
+              <option value="gustare2">Gustare2</option>
+              <option value="cina">Cina</option>
+            </select>
+
+            <label for="ziua">Ziua:</label>
+            <select id="ziua" name="ziua">
+                <option value="1">Ziua 1</option>
+                <option value="2">Ziua 2</option>
+                <option value="3">Ziua 3</option>
+                <option value="4">Ziua 4</option>
+                <option value="5">Ziua 5</option>
+                <option value="6">Ziua 6</option>
+                <option value="7">Ziua 7</option>
+              </select>
+
+			<button type="onsubmit">Adauga preparat</button>
+    </form>
+</div>
+</body>
+</html>

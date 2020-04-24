@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+<title>Meniu ADMIN</title>
+<style>
+
+body {
+  margin: 30px;
+  background-color: rgb(230, 226, 228);
+}
+.header {
+  padding-top:20px;
+  padding-bottom:100px;
+  font-size: 25px;
+  color:rgb(15, 15, 14);
+}
+#addBtn {
+  float: left;
+  border: none;
+  padding:20px;
+  background-color: black;
+  color: white;
+  font-size:14px;
+}
+input[type=button] {
+  float: left;
+  border: none;
+  padding:13px;
+  margin-left:10px;
+  margin-top:30px;
+  background-color:black;
+  color: white;
+  font-size:14px;
+}
+
+.container {
+      
+      display: grid; 
+      grid-template-columns: 0.8fr 2fr 1fr;
+      grid-template-rows: 220px;
+      grid-gap: 10px 10px;
+      text-align: left;
+      font-size:18px;
+     }
+
+.container .item .imagini {
+    width: 200px;
+}
+
+</style>
+<script>
+  var list=[];
+
+async function draw() {
+  var response = await fetch("https://restaurant-d5cc0.firebaseio.com/.json");
+  window.list = await response.json();
+  var str="";
+    for(var i in list) { 
+       
+            str+=`<div class="container">
+              <div class="item">
+               <img class="imagini" src="${list[i].img}" alt="img of food">
+              </div>
+              <div class="item">
+               <h3>${list[i].titlu}</h3>
+               <p>${list[i].ingrediente}</p>
+              </div>
+              <div class="item">
+               <a href="meniuEdit.html?id=${i}">
+                <input type="button" value="Modifica" /> </a>
+              <a href="meniuDelete.html?id=${i}">
+                <input type="button" value="Sterge" /> </a>
+              </div>
+            </div>`;
+      
+	
+         
+    }
+document.querySelector(".lista_meniu").innerHTML = str;
+  }      
+ 
+</script>
+</head>
+<body onload="draw();">
+    <div class="header">
+      <h1>Meniu \ Add . Modify . Delete</h1>
+      <a href="index.html" style="position:fixed; top:5px; left:5px;">Acasa</a>
+        <a href="meniuAdd.html">
+                <input id="addBtn" type="button" value="Adauga preparat nou"/>
+            </a>
+    </div>
+
+<div class="lista_meniu"></div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sterge Reteta</title>
+    <style>
+      .header{
+        font-size: 40px;
+        color: #020202;
+        font-weight: bold;
+      }
+      .container {
+        padding: 10px;
+      }
+      .btn {
+        background-color: rgb(7, 7, 7);
+        color: white;
+        padding: 10px 20px;
+        border-style: none;
+      }
+
+    </style>
+    <script>
+      var list = [];
+      async function draw() {
+        var i = window.location.search.substring(4);
+        var response = await fetch(`https://restaurant-d5cc0.firebaseio.com/.json`);
+        list = await response.json();
+        document.querySelector("[name='preparat']").innerHTML = list[i].titlu;
+      }
+      async function del() {
+        event.preventDefault();
+        var i = window.location.search.substring(4);
+        var response = await fetch(
+            `https://restaurant-d5cc0.firebaseio.com/${i}.json`,
+          {
+            method:"delete"
+          });
+        location.href = "meniuAdmin.html";
+      }
+    </script>
+  </head>
+
+  <body onload="draw()">
+  
+    <div>
+      <h1 class="header">Cald si bun (Admin)</h1>
+      <div class="container-grid">
+        <h2>Esti pe cale sa stergi preparatul: <span name="preparat"></span></h2>
+        <h2>Confirmi stergerea?</h2>
+        <button onclick="del();" class="btn">Da</button>
+        <a href="meniuAdmin.html"><button class="btn">Nu</button></a>
+      </div>
+    </div>
+  </body>
+</html>
